@@ -6,3 +6,9 @@ tags: []
 :source-highlighter: prettify
 :project_id: ref-microservices
 This reference describes the Microservices software design pattern and offers implementation guidance.
+
+== Overview
+
+While there is no precise definition, the term _Microservices_ typically refers to a software design pattern in which a large monolithic application is decomposed into loosely coupled, independent applications or services. These services often communicate with each other over HTTP through language-agnostic APIs, which allows separation of concerns between such things as business logic, data access, queues, etc.
+
+The idea for Microservices was born from industry experiences developing and deploying large monolithic applications. Even implementing the most well intentioned modular architecture can often result in short cuts and tight coupling between various modules. This increases the cost of maintenance over time, as well as increases the possibility of adding more technical debt.
