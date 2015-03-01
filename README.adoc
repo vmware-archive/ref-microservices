@@ -12,3 +12,19 @@ This reference describes the Microservices software design pattern and offers im
 While there is no precise definition, the term _Microservices_ typically refers to a software design pattern in which a large monolithic application is decomposed into loosely coupled, independent applications or services. These services often communicate with each other over HTTP through language-agnostic APIs, which allows separation of concerns between such things as business logic, data access, queues, etc.
 
 The idea for Microservices was born from industry experiences developing and deploying large monolithic applications. Even implementing the most well intentioned modular architecture can often result in short cuts and tight coupling between various modules. This increases the cost of maintenance over time, as well as increases the possibility of adding more technical debt.
+
+== Guidelines
+
+Understand your requirements when designing a microservice architecture:
+
+* Define logical borders between components. If you are converting a monolithic application, the existing modules may represent an initial decomposition. However, these modules communicate in process within a monolith application and will necessarily make remote calls when deployed as services. The borders that made sense before may need to be remapped when defining components of a Microservice based system.
+
+* Optimize communication between services. Services often communicate with each other via web standards. For example, HTTP RESTful endpoints may be provided from one service and consumed by one or more of the other services. Separating components into applications introduces additional latency when communicating over HTTP versus making calls in process. Try to reduce overly "chatty" communication to improve efficiency.
+
+* Several components may require some type of data access. There is no requirement that all data access must go through a single service. Additionally, different components may require access to different data stores or require different types of access to those data stores.
+
+* Prepare for more complex testing and deployments. Instead of deploying a single application, many components are deployed independently of each other. Some of these components will be deployed to multiple instances for load balancing purposes. Many components require various services or data stores to be available. One goal of a microservices architecture is to be able to update and deploy one componenet without deploying the entire system of components.
+
+* Build in fault tolerance. Services may become unavailable or very slow to respond. Components should gracefully handle these situations and not allow a cascading failure to occur. The Circuit Breaker pattern can be implemented using Netflix's Hystrix library.
+
+* Expect an iterative design process. It is challenging to understand the dynamics within a distributed system prior to implementing, deploying, and capturing analytics for the interactions between the various components. It is possible that one service will need to be combined with a another service, for example.
